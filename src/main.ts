@@ -8,10 +8,15 @@ const plantumlEncoder = require('plantuml-encoder');
 
 import { retrieveCodes, getCommitsFromPayload, updatedFiles } from './utils';
 
+if (!process.env.PLANTUML_SERVER) {
+    core.setFailed('Please set PLANTUML_SERVER env var.');
+    process.exit(1);
+}
+
 async function generateSvg(code) {
     const encoded = plantumlEncoder.encode(code);
     try {
-        const res = await axios.get(`http://www.plantuml.com/plantuml/svg/${encoded}`);
+        const res = await axios.get(process.env.PLANTUML_SERVER + `${encoded}`);
         return res.data;
     } catch(e) {
         // TODO
