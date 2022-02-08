@@ -17,3 +17,4 @@ jobs:
           path: example
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PLANTUML_SERVER: http://www.plantuml.com/plantuml/svg/
